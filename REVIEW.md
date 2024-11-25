@@ -1,24 +1,26 @@
 # MagMax
 
-    --model ${model} \
-    --dataset ${dataset} \
-    --epochs ${epochs} \
-    --n_splits ${n_splits} \
-    --split_strategy class \
-    --sequential-finetuning \
-    --seed ${seed} \
-        |& tee ${out_dir}/splits:${n_splits}-ep:${epochs}-seed:${seed}.out
+> --model ViT-B-16 \
+> --dataset CIFAR100 \
+> --epochs 10 \
+> --n_splits 20\
+> --split_strategy class \
+> --sequential-finetuning \
+> --seed 5 \
+> |& tee ${out_dir}/splits:${n_splits}-ep:${epochs}-seed:${seed}.out
 
-1. [finetune tasks using](#finetune_splittedpy), save [ImageClassifier](#imageclassifier) [encoder](#imageencoder)'s task vector ($\theta_i$) to disk
+1. [finetune tasks using](#finetune_splittedpy), save [ImageClassifier](#imageclassifier) [encoder](#imageencoder)'s task vector ($\theta_i$, which difference of current session params and pre-trained params) to disk
 
 2. [merge task](#merge_splittedpy)
+- Load all the tasks' vectors from the previous step 
+
 
 ## Dataset
 
 ## Model
 
 ### [ImageClassifier](src/modeling.py#L99)
->
+> 
 > base model contains `self.image_encoder` and `self.classification_head`
 >
 
